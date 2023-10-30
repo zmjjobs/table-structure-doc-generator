@@ -1,0 +1,24 @@
+spring:
+  profiles:
+    active: test
+    include: mysql
+  redis:
+    port: 6379
+    host: 127.0.0.1
+    client-type: jedis
+
+  datasource:
+    #url: jdbc:mysql://localhost:3306/mytest
+    url: jdbc:mysql://127.0.0.1:3306/srb_core?characterEncoding=UTF-8
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    xa:
+      properties:
+        #设置useInformationSchema 可以获取tables表注释信息 即解决数据库表和列字段有说明、生成文档没有说明
+        useInformationSchema: true
+
+mybatis: # 配置mybatis规则
+  mapper-locations: classpath:mybatis/mapper/*.xml  # 指定sql映射文件的位置
+  configuration: # 指定mybatis的全局配置
+    map-underscore-to-camel-case: true   # 驼峰命名

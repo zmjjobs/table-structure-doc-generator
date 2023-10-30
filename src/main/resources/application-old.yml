@@ -1,0 +1,41 @@
+spring:
+  profiles:
+    active: test
+  redis:
+    port: 6379
+    host: 127.0.0.1
+    client-type: jedis
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/mytest
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+    druid:
+      aop-patterns: com.zmj.admin.*  #监控SpringBean
+      filters: stat,wall,slf4j    # 底层开启功能，stat（sql监控），wall（防火墙）
+      stat-view-servlet:   # 配置监控页功能
+        enabled: true
+        login-username: admin
+        login-password: admin
+        reset-enable: false
+      web-stat-filter:    # 监控web 用于采集web-jdbc关联监控的数据
+        enabled: true
+        url-pattern: /*
+        exclusions: '*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*'
+
+      filter:
+        stat:     # 对上面filters里面的stat的详细配置
+          slow-sql-millis: 1000   # 设置只要超过1000毫秒的，都为慢查询
+          logSlowSql: true
+          enabled: true
+        wall:
+          enabled: true
+          config:
+            drop-table-allow: false
+
+mybatis: # 配置mybatis规则
+  mapper-locations: classpath:mybatis/mapper/*.xml  # 指定sql映射文件的位置
+  configuration: # 指定mybatis的全局配置
+    map-underscore-to-camel-case: true   # 驼峰命名
