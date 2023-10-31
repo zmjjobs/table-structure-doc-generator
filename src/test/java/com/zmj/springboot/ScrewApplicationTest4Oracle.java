@@ -27,8 +27,8 @@ public class ScrewApplicationTest4Oracle {
     private DataSource dataSource;
 
     private static String outFilePath = "C:/Users/mjzhud/Desktop/ceshisql";
-    private static String outFileName = "农垦IDMS数据库设计文档";
-    private static String outFileDesc = "农垦IDMS数据库设计文档";
+    private static String outFileName = "通用老核心数据库设计文档";
+    private static String outFileDesc = "通用老核心数据库设计文档";
     private static String outFileVersion = "1.0.0";
 
     /**
