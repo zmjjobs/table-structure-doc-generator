@@ -1,15 +1,8 @@
 spring:
   datasource:
-    #url: jdbc:oracle:thin:@10.106.210.10:1521:orcl?characterEncoding=UTF-8
-    #username: idmstest0320-
-    #password: idmstest0320-
-    #username: hsf_new1216_0321_18-
-    #password: hsf_new1216_0321_18-
-    url: jdbc:oracle:thin:@10.120.21.84:1521:orcl?characterEncoding=UTF-8
-    username: gfcltest20231016-
-    password: gfcltest20231016-
-    #username: draftpool_product20230717-
-    #password: draftpool_product20230717-
+    url: jdbc:oracle:thin:@10.120.21.111:1521:orcl?characterEncoding=UTF-8
+    username: idms_test20230807
+    password: idms_test20230807
     driver-class-name: oracle.jdbc.driver.OracleDriver
     xa:
       properties:
