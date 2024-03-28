@@ -27,8 +27,8 @@ public class ScrewApplicationTest4Oracle {
     private DataSource dataSource;
 
     private static String outFilePath = "D:\\MyOutputFile\\";
-    private static String outFileName = "通用IDMS数据库设计文档";
-    private static String outFileDesc = "通用IDMS数据库设计文档";
+    private static String outFileName = "数据库设计文档";
+    private static String outFileDesc = "数据库设计文档";
     private static String outFileVersion = "1.0.0";
 
     /**
