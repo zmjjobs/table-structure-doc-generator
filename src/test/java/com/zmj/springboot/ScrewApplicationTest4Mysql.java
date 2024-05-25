@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * @Author : mjzhud
+ * @Author : zhumengjun
  * @create 2023/10/26 17:08
  */
 @Slf4j
@@ -34,7 +34,7 @@ public class ScrewApplicationTest4Mysql {
         // 生成文件配置 创建screw的引擎配置
         EngineConfig engineConfig = EngineConfig.builder()
                 // 生成文件路径
-                .fileOutputDir("C:/Users/mjzhud/Desktop/ceshisql")
+                .fileOutputDir("C:/Users/zhumengjun/Desktop/ceshisql")
                 // 打开目录
                 .openOutputDir(true)
                 // 文件类型 HTML->HTML文件  WORD->WORD文件  MD->Markdown文件

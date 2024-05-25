@@ -3,7 +3,7 @@ package com.zmj.springboot.entity;
 import lombok.Data;
 
 /**
- * @Author : mjzhud
+ * @Author : zhumengjun
  * @create 2023/3/12 21:53
  */
 @Data
