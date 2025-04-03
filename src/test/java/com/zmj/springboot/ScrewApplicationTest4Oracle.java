@@ -9,7 +9,6 @@ import cn.smallbun.screw.core.process.ProcessConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 import java.util.Arrays;
@@ -27,8 +26,8 @@ public class ScrewApplicationTest4Oracle {
     private DataSource dataSource;
 
     private static String outFilePath = "D:\\MyOutputFile\\";
-    private static String outFileName = "数据库设计文档";
-    private static String outFileDesc = "数据库设计文档";
+    private static String outFileName = "建投数据库设计文档";
+    private static String outFileDesc = "建投数据库设计文档v20240704";
     private static String outFileVersion = "1.0.0";
 
     /**
