@@ -8,6 +8,7 @@ spring:
     username: hbjtproduction240115
     password: hbjtproduction240115
     driver-class-name: oracle.jdbc.driver.OracleDriver
+
     xa:
       properties:
         #设置useInformationSchema 可以获取tables表注释信息 即解决数据库表和列字段有说明、生成文档没有说明
