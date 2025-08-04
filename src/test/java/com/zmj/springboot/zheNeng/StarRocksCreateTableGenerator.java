@@ -1,5 +1,7 @@
-package com.zmj.springboot;
+package com.zmj.springboot.zheNeng;
 
+import com.zmj.springboot.ColumnData;
+import com.zmj.springboot.MyFileUtils;
 import org.apache.commons.lang.StringUtils;
 
 import java.io.IOException;
@@ -8,11 +10,16 @@ import java.util.*;
 
 /**
  * 生成StarRocks对应的mysql表结构
+ *
+ * SELECT t.table_name AS 表名称,t.comments AS 表注释, c.column_name AS 列名称, c.comments AS 列注释
+ * FROM user_col_comments c,user_tab_comments t
+ * WHERE 1=1-- c.table_name = 'ITS_V_ACC_AUTHORITY'
+ * AND c.table_name = t.table_name
  */
 public class StarRocksCreateTableGenerator {
 
     public static void main(String[] args) throws Exception {
-        String functionName = "dwf2dwd";
+        String functionName = "ods";
         String host = "10.159.140.111";
         int port = 9030;
         String userName = "root";
@@ -23,21 +30,29 @@ public class StarRocksCreateTableGenerator {
         String currTablePrefix = null;//当前表前缀
         String replaceTablePrefix = null;//要替换成的数据库表前缀
         String columnOtherSplicing = null;//要替换成的数据库表创建语句字段部分其他拼接
-        if (functionName.equals("ods2dwf")) {//ODS库到DWF库，表名字前缀改成OWF, 加了一个DATA_DT字段，且主键部分前也补充这个字段，其他不变
+        if (functionName.equals("ods")) {
+            databaseName = "ods";
+        } else if (functionName.equals("dwf")) {
+            databaseName = "dwf";
+        }else if (functionName.equals("dwd")) {
+            databaseName = "dwd";
+        }else if (functionName.equals("anm")) {
+            databaseName = "anm";
+        }else if (functionName.equals("ods2dwf")) {//ODS库到DWF库，表名字前缀改成OWF, 加了一个DATA_DT字段，且主键部分前也补充这个字段，其他不变
             databaseName = "ods";
             currTablePrefix = "ODS_";
             replaceTablePrefix = "DWF_";
             replaceDbName="dwf";//要替换的数据库名称
             columnOtherSplicing = "  `DATA_DT` varchar(10) NOT NULL COMMENT \"数据日期\",\n";
         } else
-        if (functionName.equals("dwf2dwd")) {//DWF库到DWD库，表名字前缀改成DWD，其他不变
+        if (functionName.equals("dwf2dwd")) {//DWF库到DWD库，表名字前缀改成DWD，其他不变。暂时有问题，如果需要，直接在ods2dwf文件基础上修改！！！！！！
             databaseName = "dwf";
             currTablePrefix = "DWF_";
             replaceTablePrefix = "DWD_";
         }
-        String querySQL = "SELECT TABLE_NAME,COLUMN_NAME,COLUMN_TYPE,IS_NULLABLE,COLUMN_DEFAULT,COLUMN_COMMENT FROM information_schema.columns " +
-                "WHERE table_schema = '" + databaseName +"' "
-                //+ " and table_name in ('DWF_CBS_MSG_USER') "
+        String querySQL = "SELECT TABLE_NAME,COLUMN_NAME,COLUMN_TYPE,IS_NULLABLE,COLUMN_DEFAULT,COLUMN_COMMENT FROM information_schema.columns "
+                 + "WHERE table_schema = '" + databaseName +"' "
+                //+ " and table_name in ('ODS_CBS_BS_BANKINSTRUCTIONINFO') "
                 +"ORDER BY ordinal_position";
 
 
@@ -210,7 +225,7 @@ public class StarRocksCreateTableGenerator {
         }
         //System.out.println(sqlResult);
         try {
-            MyFileUtils.print2File(sqlResult,"D:\\MyOutputFile\\"+functionName+"_Result.sql",false);
+            MyFileUtils.print2File(sqlResult,"D:\\MyOutputFile\\mysql9030_ods_v20250804.sql",false);
         } catch (IOException e) {
             e.printStackTrace();
         }
