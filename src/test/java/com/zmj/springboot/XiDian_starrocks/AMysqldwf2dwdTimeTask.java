@@ -1,4 +1,4 @@
-package com.zmj.springboot.zheNeng;
+package com.zmj.springboot.XiDian_starrocks;
 
 import com.zmj.springboot.MyFileUtils;
 
@@ -6,10 +6,10 @@ import java.io.IOException;
 import java.sql.*;
 
 /**
- * 从ODS到DWF的定时任务填写
+ * 从DWF到DWD的定时任务填写
  *
  */
-public class AMysqlods2dwfTimeTask {
+public class AMysqldwf2dwdTimeTask {
 
     public static void main(String[] args) throws Exception {
         String host = "10.159.140.111";
@@ -17,10 +17,10 @@ public class AMysqlods2dwfTimeTask {
         String userName = "root";
         String password = "Xdcs@0901";
 
-        String databaseName = "ods";//当前数据库名称
-        String replaceDbName = "dwf";//要替换成的数据库名称
-        String currTablePrefix = "ODS_";//当前表前缀
-        String replaceTablePrefix = "DWF_";//要替换成的数据库表前缀
+        String databaseName = "dwf";//当前数据库名称
+        String replaceDbName = "dwd";//要替换成的数据库名称
+        String currTablePrefix = "DWF_";//当前表前缀
+        String replaceTablePrefix = "DWD_";//要替换成的数据库表前缀
         String columnOtherSplicing = null;//要替换成的数据库表创建语句字段部分其他拼接
 
         String url = "jdbc:mysql://" + host + ":" + port + "/" + databaseName;
@@ -39,7 +39,7 @@ public class AMysqlods2dwfTimeTask {
                     String tableName = rs.getString("TABLE_NAME");
                     String replaceName = tableName.replaceFirst(currTablePrefix,replaceTablePrefix);
                     sqlResult.append("delete from ").append(replaceDbName).append(".").append(replaceName).append(" where DATA_DT = '${V_DATE}';\n");
-                    sqlResult.append("insert into ").append(replaceDbName).append(".").append(replaceName).append(" select '${V_DATE}',g.* from ").append(databaseName).append(".").append(tableName).append(" g;\n");
+                    sqlResult.append("insert into ").append(replaceDbName).append(".").append(replaceName).append(" select g.* from ").append(databaseName).append(".").append(tableName).append(" where g.DATA_DT = '${V_DATE}';\n");
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -65,7 +65,7 @@ public class AMysqlods2dwfTimeTask {
         }
 
         try {
-            MyFileUtils.print2File(sqlResult,"D:\\MyOutputFile\\ods2dwfTimeTask.sql",false);
+            MyFileUtils.print2File(sqlResult,"D:\\MyOutputFile\\AMysqldwf2dwdTimeTask.sql",false);
         } catch (IOException e) {
             e.printStackTrace();
         }
